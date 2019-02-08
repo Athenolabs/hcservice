@@ -1,0 +1,18 @@
+{
+	"css/hcservice-web.min.css":[
+		"public/css/dashboard.css"
+	],
+	"js/hcservice-web.min.js":[
+	],
+	"js/plugin-web.min.js":[
+		"public/js/libs/maps-google/plugin.js",
+		"public/js/libs/charts-c3/plugin.js",
+		"public/js/libs/prismjs/plugin.js",
+		"public/js/libs/input-mask/plugin.js"
+	],	
+	"css/plugin-web.min.css":[
+		"public/js/libs/maps-google/plugin.css",
+		"public/js/libs/charts-c3/plugin.css",
+		"public/js/libs/prismjs/plugin.css"
+	]	
+}

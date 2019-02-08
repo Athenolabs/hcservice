@@ -19,8 +19,12 @@ app_license = "MIT"
 # app_include_js = "/assets/hcservice/js/hcservice.js"
 
 # include js, css files in header of web template
-# web_include_css = "/assets/hcservice/css/hcservice.css"
-# web_include_js = "/assets/hcservice/js/hcservice.js"
+web_include_css = [
+	"/assets/css/hcservice-web.min.css"
+]
+web_include_js = [
+	"/assets/js/hcservice-web.min.js"
+]
 
 # include js in page
 # page_js = {"page" : "public/js/file.js"}

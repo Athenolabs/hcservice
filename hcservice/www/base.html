@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<!-- Built on Frappe. https://frappe.io/ -->
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>{% block title %} {{ title | striptags }} {% endblock %}</title>
+	<meta name="generator" content="frappe">
+    {% block favicon %}
+	<link rel="shortcut icon"
+		href="{{ (favicon or "/assets/frappe/images/favicon.png") | abs_url }}"
+		type="image/x-icon">
+	<link rel="icon"
+		href="{{ (favicon or "/assets/frappe/images/favicon.png") | abs_url }}"
+		type="image/x-icon">
+    {% endblock %}
+	{%- block head -%}
+		{% block meta_block %}{% endblock %}
+		{% if head_html is defined -%}
+		{{ head_html or "" }}
+		{%- endif %}
+		<link rel="stylesheet" 
+			href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    		<link rel="stylesheet" 
+			href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,500,500i,600,600i,700,700i&amp;subset=latin-ext">
+		{%- for link in web_include_css %}
+		<link type="text/css" rel="stylesheet" href="{{ link|abs_url }}">
+		{%- endfor -%}
+	    {%- block head_include %}{{ head_include or "" }}{% endblock -%}
+		{%- block style %}{%- endblock -%}
+	{%- endblock -%}
+    <script>
+    </script>
+</head>
+{% block body %}
+<body data-path="{{ path }}">
+	<div class="main-section">
+		<div class="wrapper">
+			<header>
+				{%- block navbar -%}
+            			{%- endblock -%}
+			</header>
+
+			<div class="container">
+				{% block content %}{% endblock %}
+			</div>
+		</div>
+		{%- if footer is defined -%}
+			<footer class="page-footer">
+				<div class="container">
+					{{ footer }}
+				</div>
+			</footer>
+		{%- endif -%}
+		<div>
+			{%- block footer -%}{% include "templates/includes/footer/footer.html" %}{%- endblock -%}
+		</div>
+	</div>
+	{% block base_scripts %}
+		<script type="text/javascript" src="/assets/hcservice/js/hcservice/require.min.js"></script>
+		<script type="text/javascript" src="/assets/hcservice/js/hcservice/dashboard.js"></script>
+		<!-- js should be loaded in body! -->
+	{% endblock %}
+    {%- if js_globals is defined %}
+    <script>
+	      //requirejs.config({
+		 // baseUrl: '.'
+	      //});
+    	{%- for key, value in js_globals.iteritems() %}
+    		window.{{ key }} = "{{ value[0] }}";
+    	{%- endfor -%}
+    </script>
+    {% endif -%}
+	{%- for link in web_include_js %}
+	<script type="text/javascript" src="{{ link|abs_url }}"></script>
+	{%- endfor -%}
+    {%- block script %}{%- endblock %}
+	<!-- csrf_token -->
+    {%- block body_include %}{{ body_include or "" }}{% endblock -%}
+</body>
+{% endblock %}
+</html>
