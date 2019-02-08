@@ -1,0 +1,18 @@
+include MANIFEST.in
+include requirements.txt
+include *.json
+include *.md
+include *.py
+include *.txt
+recursive-include hcservice *.css
+recursive-include hcservice *.csv
+recursive-include hcservice *.html
+recursive-include hcservice *.ico
+recursive-include hcservice *.js
+recursive-include hcservice *.json
+recursive-include hcservice *.md
+recursive-include hcservice *.png
+recursive-include hcservice *.py
+recursive-include hcservice *.svg
+recursive-include hcservice *.txt
+recursive-exclude hcservice *.pyc
