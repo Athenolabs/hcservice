@@ -7,8 +7,10 @@ requirejs.config({
 		'vector-map-de': ['vector-map', 'jquery'],
 		'vector-map-world': ['vector-map', 'jquery'],
 		'core': ['bootstrap', 'jquery'],
+		"frappe": ["jquery", "bootstrap", "hcservice"]
 	},
 	paths: {
+		'frappe':'/assets/js/frappe-web.min',
 		'hcservice': '/assets/hcservice/js/hcservice.min',
 		'prismjs': '/assets/hcservice/js/libs/prismjs/plugin',
 		'core': '/assets/hcservice/js/hcservice/core',
@@ -125,4 +127,4 @@ colors: {
 'gray-dark-lightest': '#ebebec'
 }
 };
-requirejs(['core']);
+require(['core']);

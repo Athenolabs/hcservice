@@ -29,8 +29,14 @@
 	    {%- block head_include %}{{ head_include or "" }}{% endblock -%}
 		{%- block style %}{%- endblock -%}
 	{%- endblock -%}
-    <script>
-    </script>
+	<script>
+		window.frappe = {};
+		frappe.ready_events = [];
+		frappe.ready = function(fn) {
+			frappe.ready_events.push(fn);
+		}
+		window.dev_server = {{ dev_server }};
+	</script>
 </head>
 {% block body %}
 <body data-path="{{ path }}">
@@ -57,24 +63,20 @@
 		</div>
 	</div>
 	{% block base_scripts %}
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.slim.js">i
+		</script>
 		<script type="text/javascript" src="/assets/hcservice/js/hcservice/require.min.js"></script>
 		<script type="text/javascript" src="/assets/hcservice/js/hcservice/dashboard.js"></script>
 		<!-- js should be loaded in body! -->
 	{% endblock %}
-    {%- if js_globals is defined %}
-    <script>
-	      //requirejs.config({
-		 // baseUrl: '.'
-	      //});
-    	{%- for key, value in js_globals.iteritems() %}
-    		window.{{ key }} = "{{ value[0] }}";
-    	{%- endfor -%}
-    </script>
-    {% endif -%}
-	{%- for link in web_include_js %}
-	<script type="text/javascript" src="{{ link|abs_url }}"></script>
-	{%- endfor -%}
-    {%- block script %}{%- endblock %}
+	<script>
+		require.config({
+			baseUrl: '.'
+		});
+	</script>
+	<script>
+	    {%- block script %}{%- endblock %}
+	</script>
 	<!-- csrf_token -->
     {%- block body_include %}{{ body_include or "" }}{% endblock -%}
 </body>
