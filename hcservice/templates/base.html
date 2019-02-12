@@ -40,26 +40,17 @@
 </head>
 {% block body %}
 <body data-path="{{ path }}">
-	<div class="main-section">
-		<div class="wrapper">
-			<header>
-				{%- block navbar -%}
-            			{%- endblock -%}
-			</header>
-
+	<div class="page1">
+		<div class="main-page">
+			{%- block navbar -%}
+				{% include "templates/includes/dashboard/navbar/navbar.html" %}
+			{%- endblock -%}
 			<div class="container">
 				{% block content %}{% endblock %}
 			</div>
-		</div>
-		{%- if footer is defined -%}
-			<footer class="page-footer">
-				<div class="container">
-					{{ footer }}
-				</div>
-			</footer>
-		{%- endif -%}
-		<div>
-			{%- block footer -%}{% include "templates/includes/footer/footer.html" %}{%- endblock -%}
+			{%- block footer -%}
+				{% include "templates/includes/dashboard/footer/footer.html" %}
+			{%- endblock -%}
 		</div>
 	</div>
 	{% block base_scripts %}

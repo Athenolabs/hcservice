@@ -5,11 +5,14 @@
 
 requirejs(["jquery", "frappe"], function($){
 	
-	$("#sign_in").on("click", function(event){
+	$("#signin_form").on("submit", function(event){
 		event.preventDefault();
-		console.log($("#login_email").val());
-		console.log($("#password").val());
-		
+		var username = $("#login_email").val();
+		var password = $("#password").val();
+		if(!username || password){
+			frappe.msgprint(__("Please enter username and password"));
+			return false;
+		}
 		frappe.call({
 			"method": "login",
 			"args": {
@@ -17,7 +20,7 @@ requirejs(["jquery", "frappe"], function($){
 				"pwd": $("#password").val()
 			},
 			"callback": function(res){
-				console.log(res);
+				
 			}
 		});
 		return false;
