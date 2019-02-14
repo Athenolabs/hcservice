@@ -7,13 +7,16 @@ requirejs.config({
 		'vector-map-de': ['vector-map', 'jquery'],
 		'vector-map-world': ['vector-map', 'jquery'],
 		'core': ['bootstrap', 'jquery'],
-		"frappe": ["jquery", "bootstrap", "hcservice"]
+		"frappe": ["jquery", "bootstrap", "hcservice"],
+		"hcservice": ["jquery"],
+		"request": ["frappe", "jquery"],
 	},
 	paths: {
 		'frappe':'/assets/js/frappe-web.min',
 		'hcservice': '/assets/hcservice/js/hcservice.min',
 		'prismjs': '/assets/hcservice/js/libs/prismjs/plugin',
 		'core': '/assets/hcservice/js/hcservice/core',
+		'request': "/assets/frappe/js/frappe/request",
 		'jquery': '/assets/hcservice/js/hcservice/vendors/jquery-3.2.1.min',
 		'bootstrap': '/assets/hcservice/js/hcservice/vendors/bootstrap.bundle.min',
 		'sparkline': '/assets/hcservice/js/hcservice/vendors/jquery.sparkline.min',

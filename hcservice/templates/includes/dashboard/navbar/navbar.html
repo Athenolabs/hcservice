@@ -1,24 +1,28 @@
 <div class="header py-4">
 	<div class="container">
-		<div class="d-flex">
-			<a class="header-brand" href="#">
-				<img src="./demo/brand/tabler.svg" class="header-brand-img" alt="Health Service">
+		<div class="d-flex ml-auto">
+			<a class="header-brand" href="/login">
+				<img src="/assets/hcservice/images/logo/siscohealth-logo.png" class="header-brand-img" alt="Health Service" style="width:200px; height:100px;">
 			</a>
 			<div class="dropdown ml-auto">
 				<a href="#" class="nav-link pr-0 leading-none" data-toggle="dropdown">
-					<span class="avatar" style="background-image: url(./demo/faces/female/25.jpg)">
+					<span class="avatar" style="background-image: url()">
 					</span>
 					<span class="ml-2 d-none d-lg-block">
-						<span class="text-default">Jane Pearson</span>
-						<small class="text-muted d-block mt-1">Administrator</small>
+						
+						{% if full_name %}
+							<span class="text-default">{{ full_name }}</span>
+						{% endif %}
+						{% if email %}
+							<small class="text-muted d-block mt-1">
+								{{ email }}
+							</small>
+						{% endif %}
 					</span>
 				</a>
 				<div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-					<a class="dropdown-item" href="#">
+					<a class="dropdown-item" href="/profile">
 						<i class="dropdown-icon fe fe-user"></i> Profile
-					</a>
-					<a class="dropdown-item" href="#">
-						<i class="dropdown-icon fe fe-settings"></i> Settings
 					</a>
 					<a class="dropdown-item" href="#">
 						<i class="dropdown-icon fe fe-log-out"></i> Sign out
