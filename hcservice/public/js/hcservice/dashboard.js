@@ -12,6 +12,7 @@ requirejs.config({
 		"request": ["frappe", "jquery"],
 	},
 	paths: {
+		"flatpickr": "/assets/hcservice/js/libs/flatpickr/flatpickr"
 		'frappe':'/assets/js/frappe-web.min',
 		'hcservice': '/assets/hcservice/js/hcservice.min',
 		'prismjs': '/assets/hcservice/js/libs/prismjs/plugin',
