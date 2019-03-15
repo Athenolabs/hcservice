@@ -1,0 +1,139 @@
+/*
+	Developer Navdeep
+	Email navdeepghai1@gmail.com
+*/
+
+.background-image-cover{
+ height: 100%;
+ width:100%;
+ margin-bottom:-1px;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+.test{
+	background-color:white;
+}
+.octicon{
+    color: #428bca !important;
+}
+
+.case-label{
+	color: #8F8F8F !important;
+	text-shadow: none !important;
+}
+.btn-primary{
+    background-color: #3c98b6;
+    border:#8F8F8F;
+}
+
+.indicator.blue::before, .indicator-right.blue::after{
+    background: #3c98b6 !important;
+}
+
+.navbar-main{
+    background:#3c98b6 !important;
+}
+.navbar-default{
+    background:#3c98b6 !important;
+
+}
+.section-head {
+	margin-bottom: 15px;
+	margin-top: 0px;
+        background: #428bca;
+        padding: 5px;
+        color: #fff !important;
+	border-radius: 5px;
+}
+.module-section {
+	border-bottom: 1px solid @light-border-color;
+	display: flex;
+}
+.module-section-link {
+	line-height: 1.5em;
+}
+
+.module-section-column {
+       padding: 30px;
+       padding: 15px;
+       border: 1px solid #3c98b6;
+       border-radius: 4px;
+       margin: 5px
+}
+.module-sidebar-nav .app-icon {
+  background-color: transparent !important;
+  padding: 0px !important;
+  border-radius: 0px !important;
+  box-shadow: none;
+}
+.navbar-default .navbar-nav > li > a, .navbar-default .navbar-brand{
+	color:white !important;
+}
+.module-sidebar-nav .app-icon i {
+  font-size:20px;
+  color: #3c98b6;
+}
+
+.nav-stacked > li {
+  float: none !important;
+  background: #ededf5 !important;
+}
+
+.nav-pills > li.active > a,
+.nav-pills > li.active > a:hover,
+.nav-pills > li.active > a:focus {
+  background-color: #3c98b6 !important;
+  color:#fff !important;
+}
+
+.nav-pills > li.active > i,
+.nav-pills > li.active > a:hover i,
+.nav-pills > li.active > a:focus i {
+  background-color: #3c98b6 !important;
+  color:#fff !important;
+}
+
+.menu-btn-group{
+  background-color: #3c98b6 !important;
+}
+.module-section-column{
+	border-color:#3c98b6 !important;
+}
+.page-title{
+	color:#3c98b6 !important;
+}
+.btn-primary{
+	background-color:#3c98b6 !important;
+	border-color: #dbdbe6 !important;
+}
+.btn-primary:hover{
+	opacity: 0.7 !important;
+
+}
+
+.modal-content{
+        border-color:#3c98b6 !important;
+}
+
+.btn-group > .btn:first-child{
+    background-color: #3c98b6 !important;
+    color: #fff !important;;
+}
+
+.navbar-new-comments-true{
+    background-color: #3c98b6 !important;;
+
+}
+
+/* Changes for the sections  */
+.section-head{
+	background: #428bca !important;
+}
+h6.uppercase, .h6.uppercase{
+        color: white !important;
+}
+.section-head span{
+	color: white !important;	
+}

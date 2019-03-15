@@ -15,8 +15,12 @@ app_license = "MIT"
 # ------------------
 
 # include js, css files in header of desk.html
-# app_include_css = "/assets/hcservice/css/hcservice.css"
-# app_include_js = "/assets/hcservice/js/hcservice.js"
+app_include_css = [
+	"/assets/css/hcservice.min.css"
+]
+app_include_js = [
+	"/assets/js/hcservice.min.js"
+]
 
 # include js, css files in header of web template
 web_include_css = [
@@ -26,12 +30,15 @@ web_include_js = [
 	"/assets/js/hcservice-web.min.js"
 ]
 
+
 # include js in page
 # page_js = {"page" : "public/js/file.js"}
 
 # include js in doctype views
 # doctype_js = {"doctype" : "public/js/doctype.js"}
-# doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
+doctype_list_js = {
+	"Patient" : "public/js/controllers/listview/patient_list.js"
+}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
 
@@ -39,7 +46,7 @@ web_include_js = [
 # ----------
 
 # application home page (will override Website Settings)
-# home_page = "login"
+home_page = "login"
 
 # website user home page (by Role)
 # role_home_page = {
@@ -123,4 +130,8 @@ web_include_js = [
 # override_whitelisted_methods = {
 # 	"frappe.desk.doctype.event.event.get_events": "hcservice.event.get_events"
 # }
-
+update_website_context = "hcservice.website.website.get_context"
+website_context = {
+	"favicon":      "/assets/hcservice/images/logo/siscohealth-logo.png",
+	"splash_image": "/assets/hcservice/images/logo/siscohealth-logo.png"
+}

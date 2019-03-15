@@ -24,7 +24,7 @@ requirejs(["jquery", "frappe", "hcservice"], function($, fr, hcservice){
 			},
 			"callback": function(res){
 				if(res && res.message =="Logged In"){
-					window.location.href = "/dashboard?username="+res.full_name;
+					window.location.href = "/desk";
 				}
 				else{
 					

@@ -1,4 +1,10 @@
 {
+	"css/hcservice.min.css":[
+		"public/css/hcservice/hcservice.css"
+	],
+	"js/hcservice.min.js":[
+		"public/js/hcservice/hcservice.js"	
+	],
 	"css/hcservice-web.min.css":[
 		"public/css/dashboard.css"
 	],
