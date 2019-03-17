@@ -3925,6 +3925,7 @@ input[type="button"].btn-block {
   display: block;
 }
 
+/*
 .navbar {
   position: relative;
   display: -ms-flexbox;
@@ -4333,7 +4334,7 @@ input[type="button"].btn-block {
 .navbar-dark .navbar-text a:hover, .navbar-dark .navbar-text a:focus {
   color: #fff;
 }
-
+*/
 .card {
   position: relative;
   display: -ms-flexbox;

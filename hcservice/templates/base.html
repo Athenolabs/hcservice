@@ -19,58 +19,84 @@
 		{% if head_html is defined -%}
 		{{ head_html or "" }}
 		{%- endif %}
-		<link rel="stylesheet" 
-			href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-		<link rel="stylehseet" 
-			"/assets/hcservice/js/libs/flatpickr/plugin.css">
-    		<link rel="stylesheet" 
-			href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,500,500i,600,600i,700,700i&amp;subset=latin-ext">
 		{%- for link in web_include_css %}
 		<link type="text/css" rel="stylesheet" href="{{ link|abs_url }}">
 		{%- endfor -%}
 	    {%- block head_include %}{{ head_include or "" }}{% endblock -%}
 		{%- block style %}{%- endblock -%}
 	{%- endblock -%}
-	<script>
+    <script>
 		window.frappe = {};
 		frappe.ready_events = [];
 		frappe.ready = function(fn) {
 			frappe.ready_events.push(fn);
 		}
 		window.dev_server = {{ dev_server }};
-	</script>
+		window.socketio_port = {{ frappe.socketio_port }};
+    </script>
 </head>
 {% block body %}
 <body data-path="{{ path }}">
-	<div class="page1">
-		<div class="main-page">
+	<div class="main-section">
+		<div class="wrapper">
+			<header>
+			{%- block banner -%}
+				{% include "templates/includes/banner_extension.html" ignore missing %}
+				{% if banner_html -%}
+				<div class="container">
+					<div class='banner'>
+						{{ banner_html or "" }}
+					</div>
+				</div>
+				{%- endif %}
+			{%- endblock -%}
+
 			{%- block navbar -%}
-				{% include "templates/includes/dashboard/navbar/navbar.html" %}
-			{%- endblock -%}
-			<div class="container">
-				{% block content %}{% endblock %}
-			</div>
-			{%- block footer -%}
-				{% include "templates/includes/dashboard/footer/footer.html" %}
-			{%- endblock -%}
+                {% include "templates/includes/navbar/navbar.html" %}
+            {%- endblock -%}
+			</header>
+
+            <div class="hero-and-content">
+                <div data-html-block="hero">
+				{%- block hero -%}{%- endblock -%}
+                </div>
+                <div class="container">
+                {% block content %}{% endblock %}
+                </div>
+            </div>
+			{%- if footer is defined -%}
+			<footer class="page-footer">
+				<div class="container">
+					{{ footer }}
+				</div>
+			</footer>
+			{%- endif -%}
+		</div>
+		<div>
+			{%- block footer -%}{% include "templates/includes/footer/footer.html" %}{%- endblock -%}
 		</div>
 	</div>
 	{% block base_scripts %}
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.slim.js">i
-		</script>
-		<script type="text/javascript" src="/assets/hcservice/js/hcservice/require.min.js"></script>
-		<script type="text/javascript" src="/assets/hcservice/js/libs/flatpickr/plugin.js"></script>
-		<script type="text/javascript" src="/assets/hcservice/js/hcservice/dashboard.js"></script>
-		<!-- js should be loaded in body! -->
+	<!-- js should be loaded in body! -->
+	<script type="text/javascript"
+		src="/assets/frappe/js/lib/jquery/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.slim.js"></script>
+	<script type="text/javascript"
+		src="/assets/js/frappe-web.min.js"></script>
+	<script type="text/javascript"
+		src="/assets/frappe/js/lib/bootstrap.min.js"></script>
 	{% endblock %}
-	<script>
-		require.config({
-			baseUrl: '.'
-		});
-	</script>
-	<script>
-	    {%- block script %}{%- endblock %}
-	</script>
+    {%- if js_globals is defined %}
+    <script>
+    {%- for key, value in js_globals.iteritems() %}
+    window.{{ key }} = "{{ value[0] }}";
+    {%- endfor -%}
+    </script>
+    {% endif -%}
+	{%- for link in web_include_js %}
+	<script type="text/javascript" src="{{ link|abs_url }}"></script>
+	{%- endfor -%}
+    {%- block script %}{%- endblock %}
 	<!-- csrf_token -->
     {%- block body_include %}{{ body_include or "" }}{% endblock -%}
 </body>
