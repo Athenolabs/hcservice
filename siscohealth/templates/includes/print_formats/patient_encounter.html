@@ -1,63 +1,240 @@
+{% set doc = frappe.get_doc("Patient Intake", doc.doc_intake) %}
+{% set practitioner = frappe.get_doc("Healthcare Practitioner", "Igor") %}
 {% include "templates/includes/print_formats/commons/header.html" %}
 {% include "templates/includes/print_formats/commons/footer.html" %}
 <div class="row section-break">
-{% set patient = frappe.get_doc("Patient Intake", doc.patient_intake) %}
-	<div class="col-xs-6">
-		<div class="col-xs-6">
-			<p >First Name</p>
+	<div class="col-xs-12">
+		<div class="col-xs-3">
+			<p >First Name: </p>
 		</div>
-		<div class="col-xs-6">
-			<p class="bold">{{ patient.patient_first_name }}</p>
+		<div class="col-xs-3">
+			<p class="bold">{{ doc.patient_first_name }}</p>
 		</div>
-		<div class="col-xs-6">
+		<div class="col-xs-3">
+			<p > Last Name </p>
+		</div>
+		<div class="col-xs-3">
+			<p class="bold">{{ doc.patient_last_name }}</p>
+		</div>
+		<div class="col-xs-3">
 			<p >Date of Birth </p>
 		</div>
-		<div class="col-xs-6">
-			<p class="bold">{{ patient.date_of_birth }}</p>
-		</div>
-		<div class="col-xs-6">
-			<p >Address </p>
-		</div>
-		<div class="col-xs-6">
-			<p class="bold">{{ patient.pr_address_1 }}</p>
-		</div>
-		<div class="col-xs-6">
-			<p >Phone </p>
-		</div>
-		<div class="col-xs-6">
-			<p class="bold">{{ patient.patient_home_phone }}</p>
-		</div>
-	</div>
-	<div class="col-xs-6">
-		<div class="col-xs-6">
-			<p >Last Name </p>
-		</div>
-		<div class="col-xs-6">
-			<p class="bold">{{ patient.patient_first_name }}</p>
-		</div>
-		<div class="col-xs-6">
+		<div class="col-xs-3">
+			<p class="bold">{{ doc.date_of_birth }}</p>
+		</div>	
+		<div class="col-xs-3">
 			<p >Gender </p>
 		</div>
-		<div class="col-xs-6">
-			<p class="bold">{{ patient.gender }}</p>
-		</div>
-		<div class="col-xs-6">
-			<p >City </p>
-		</div>
-		<div class="col-xs-6">
-			<p class="bold">{{ patient.pr_city }}</p>
-		</div>
-		<div class="col-xs-6">
-			<p >State</p>
-		</div>
-		<div class="col-xs-6">
-			<p class="bold">{{ patient.pr_state }}</p>
-		</div>
-		<div class="col-xs-6">
-			<p >Zip</p>
-		</div>
-		<div class="col-xs-6">
-			<p class="bold">{{ patient.pr_zip_code }}</p>
+		<div class="col-xs-3">
+			<p class="bold">{{ doc.gender }}</p>
 		</div>
 	</div>
+	<div class="col-xs-12">
+		<div class="col-xs-3">
+			<p >Address </p>
+		</div>
+		<div class="col-xs-3">
+			<p class="bold">{{ doc.pr_address_1 }}</p>
+		</div>
+		{% if doc.pr_address_2 %}
+			<div class="col-xs-3">
+				<p >Address 2 </p>
+			</div>
+			<div class="col-xs-3">
+				<p class="bold">{{ doc.pr_address_2 }}</p>
+			</div>	
+		{% endif%}
+		<div class="col-xs-3">
+			<p >City </p>
+		</div>
+		<div class="col-xs-3">
+			<p class="bold">{{ doc.pr_city }}</p>
+		</div>
+		<div class="col-xs-3">
+			<p >State </p>
+		</div>
+		<div class="col-xs-3">
+			<p class="bold">{{ doc.pr_state }}</p>
+		</div>
+		<div class="col-xs-3">
+			<p >Zip </p>
+		</div>
+		<div class="col-xs-3">
+			<p class="bold">{{ doc.pr_zip_code }}</p>
+		</div>
+		<div class="col-xs-3">
+			<p >Phone </p>
+		</div>
+		<div class="col-xs-3">
+			<p class="bold">{{ doc.patient_home_phone }}</p>
+		</div>			
+	</div>
+	<div class="col-xs-12">
+		{% set complaints = [] %}
+		<div class="col-xs-3">
+			Complaints
+		</div>
+		<div class="hidden">
+		{% if doc.c_l_foot_or_ankle %}
+			{{ complaints.append(doc.meta.get_field("c_l_foot_or_ankle").label) }}
+		{% endif %}
+		{% if doc.c_r_foot_or_ankle %}
+			{{ complaints.append(doc.meta.get_field("c_r_foot_or_ankle").label) }}
+		{% endif %}
+		{% if doc.c_l_shoulder %}
+			{{ complaints.append(doc.meta.get_field("c_l_shoulder").label) }}
+		{% endif %}
+		{% if doc.c_r_shoulder %}
+			{{ complaints.append(doc.meta.get_field("c_r_shoulder").label) }}
+		{% endif %}
+		{% if doc.c_l_hand_or_wrist %}
+			{{ complaints.append(doc.meta.get_field("c_l_hand_or_wrist").label) }}
+		{% endif %}
+		{% if doc.c_r_hand_or_wrist %}
+			{{ complaints.append(doc.meta.get_field("c_r_hand_or_wrist").label) }}
+		{% endif %}
+		{% if doc.c_l_knee %}
+			{{ complaints.append(doc.meta.get_field("c_l_knee").label) }}
+		{% endif %}
+		{% if doc.c_r_knee %}
+			{{ complaints.append(doc.meta.get_field("c_r_knee").label) }}
+		{% endif %}
+		</div>
+		<div class="col-xs-9">
+			{{ ", ".join(complaints) }}	
+		</div>	
+	</div>
+	<div class="col-xs-12">
+		<div class="col-xs-3">
+			<p >Height </p>
+		</div>
+		<div class="col-xs-3">
+			<p class="bold">{{ doc.height }}</p>
+		</div>
+		<div class="col-xs-3">
+			<p >Weight </p>
+		</div>
+		<div class="col-xs-3">
+			<p class="bold">{{ doc.weight }}</p>
+		</div>
+		<div class="col-xs-3">
+			<p >Physical Activity </p>
+		</div>
+		<div class="col-xs-3">
+			<p class="bold">{{ doc.cs_physical_activities or "Not Selected" }}</p>
+		</div>	
+	</div>
+	<div class="col-xs-12">
+		<div class="col-xs-3">
+			<p >Diabetes(if so, type) </p>
+		</div>
+		<div class="col-xs-3">
+			<p class="bold">{{ doc.diabetic_type }}</p>
+		</div>
+		{% set osteoarthritis = [] %}
+		{% set neuropathy = [] %} 
+		{% set arthritis = [] %}
+		<div class="hidden">	
+			{% if doc.csn_feet %}
+				{{ neuropathy.append(doc.meta.get_field("csn_feet").label) }}
+			{% endif %}
+			{% if doc.csn_legs %}
+				{{ neuropathy.append(doc.meta.get_field("legs").label) }}
+			{% endif %}
+			{% if doc.csn_hands %}
+				{{ neuropathy.append(doc.meta.get_field("csn_hands").label) }}
+			{% endif %}
+			{% if doc.csa_back %}
+				{{ arthritis.append(doc.meta.get_field("csa_back").label) }}
+			{% endif %}
+			{% if doc.csa_feet %}
+				{{ arthritis.append(doc.meta.get_field("csa_feet").label) }}
+			{% endif %}
+			{% if doc.csa_hands %}
+				{{ arthritis.append(doc.meta.get_field("csa_hands").label) }}
+			{% endif %}
+			{% if doc.csa_legs %}
+				{{ arthritis.append(doc.meta.get_field("csa_legs").label) }}
+			{% endif %}
+			{% if doc.cso_feet %}
+				{{ osteoarthritis.append(doc.meta.get_field("cso_feet").label) }}
+			{% endif %}
+			{% if doc.cso_back %}
+				{{ osteoarthritis.append(doc.meta.get_field("csn_back").label) }}
+			{% endif %}
+			{% if doc.cso_legs %}
+				{{ osteoarthritis.append(doc.meta.get_field("cso_legs").label) }}
+			{% endif %}
+			{% if doc.cso_hands %}
+				{{ osteoarthritis.append(doc.meta.get_field("cso_hands").label) }}
+			{% endif %}
+		</div>	
+		<div class="col-xs-3">
+			<p >Osteoarthritis(if so, type) </p>
+		</div>
+		<div class="col-xs-3">
+			<p class="bold">{{ ",  ".join(osteoarthritis) or "N/A"}}</p>
+		</div>			
+		<div class="col-xs-3">
+			<p >Arthritis(if so, type) </p>
+		</div>
+		<div class="col-xs-3">
+			<p class="bold">{{ ", ".join(arthritis) or "N/A" }}</p>
+		</div>			
+		<div class="col-xs-3">
+			<p >Neuropathy(if so, type) </p>
+		</div>
+		<div class="col-xs-3">
+			<p class="bold">{{ ", ".join(neuropathy) or "N/A" }}</p>
+		</div>			
+		<div class="col-xs-3">
+			<p >Living Situation(if so, type) </p>
+		</div>
+		<div class="col-xs-3">
+			<p class="bold">{{ doc.cs_living_situtation or "N/A" }}</p>
+		</div>			
+		<div class="col-xs-3">
+			<p >Able to Self-Care(if so, type) </p>
+		</div>
+		<div class="col-xs-3">
+			<p class="bold">{{ "Yes" if doc.cs_self_care else "No" }}</p>
+		</div>			
+	</div>
+	<div class="col-xs-12">
+		{% set insurances = frappe.get_all("Insurance", {"patient_intake": doc.name},
+			"*") %}
+		{% if insurances %}
+			<div class="col-xs-12">
+			<table class="table table-bordered">
+				<thead>
+					<th>Is Primary</th>
+					<th>Insurance</th>
+					<th>Policy</th>
+				</thead>
+				<tbody>	
+					{% for ins in insurances %}
+						<tr>
+							<td>{{ "Yes" if ins.is_primary else "No"}}</td>
+							<td>{{ins.insurance_provider}}</td>
+							<td>{{ ins.insurance_no}}</td>
+						</tr>	
+					{% endfor %}
+				</tbody>
+			</table>
+			</div>
+		{% endif %}
+	</div>
 </div>
+<p class="page-break"></p>
+<div class="row">
+	{% for encounter in frappe.get_all("Patient Encounter", {"patient_intake": doc.name}, "*") %}
+		{% set e = frappe.get_doc("Patient Encounter", encounter.name) %}
+		<div class="col-xs-12">
+							
+		</div>		
+	{% endfor %}	
+</div>
+<p class="page-break"></p>
+<div class="row">
+</div>
+<p class="page-break"></p>

@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 from . import __version__ as app_version
 
 app_name = "siscohealth"
-app_title = "Sisco Health"
+app_title = "SiscoHealth"
 app_publisher = "navdeepghai1@gmail.com"
 app_description = "Healthcare Services"
 app_icon = "octicon octicon-file-directory"
@@ -91,8 +91,10 @@ home_page = "login"
 # Hook on document methods and events
 
 doc_events = {
-	"Patient Encounter": {
+	"*": {
  		"validate": "siscohealth.controllers.base_controller.handle_doc_event",
+ 		"on_submit": "siscohealth.controllers.base_controller.handle_doc_event",
+ 		"on_cancel": "siscohealth.controllers.base_controller.handle_doc_event",
 	}
 }
 

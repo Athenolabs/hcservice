@@ -19,9 +19,27 @@
     color: #428bca !important;
 }
 
+#page-desktop{
+	background-color: #3c98b6 !important;
+}
 .case-label{
-	color: #8F8F8F !important;
+	color: white !important;
 	text-shadow: none !important;
+}
+.app-icon {
+    padding: 20px;
+    display: inline-block;
+    margin: auto;
+    text-align: center;
+    border-radius: 16px;
+    border: white 1px solid;
+    cursor: pointer;
+    border-radius: 30px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.15);
+}
+body[data-route=""] .navbar-default,
+body[data-route="desktop"] .navbar-default {
+  border-bottom: white solid 1px !important;
 }
 .btn-primary{
     background-color: #3c98b6;

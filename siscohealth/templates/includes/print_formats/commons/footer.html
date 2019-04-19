@@ -1,5 +1,8 @@
 {% if print_settings.repeat_header_footer %}
 	<div id="footer-html" class="visible-pdf">
+		<p style="text-align:justify;">
+			{{ frappe.render_template(practitioner.doctor_note or "", {"sign_on": frappe.utils.now_datetime() }) }}
+		</p>
 		{% if not no_letterhead and footer %}
 			<div class="letter-head-footer">
 				{{ footer }}

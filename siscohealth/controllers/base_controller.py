@@ -3,9 +3,34 @@
 	Email navdeepghai1@gmail.com
 '''
 import frappe
-from frappe import _, msgprint, throw
+from frappe import _, msgprint, throw, scrub
 from frappe.utils import cint, flt
+import sys
+import os
+import importlib
 
+'''
+	Make all standard module dynamical module
+'''
+
+def get_module_path(doctype):
+	controller = scrub(doctype)
+	
+	controller_path = "%s.%s.%s"%("siscohealth", 
+			"document_controllers", controller)
+	controller = None
+	try:
+		controller = importlib.import_module(controller_path)
+	except ImportError as e:
+		frappe.msgprint("""Import Error while triggering 
+			<b>%s</b> controller """%(doctype))
+	return controller
+
+
+'''
+	Handler every doc events and execute relevent 
+	controller from Document Controller
+'''			
 def handle_doc_event(doc, method):
 	
 	'''
@@ -15,8 +40,8 @@ def handle_doc_event(doc, method):
 	doctype = doc.meta.name
 	func = None
 	if doctype == "Patient Encounter":
-		from siscohealth.controllers.healthcare_controller import HealthcareController
-		func = getattr(HealthcareController(doc, doctype, method), method, None)
+		controller = get_module_path(doctype)
+		func = getattr(controller.PatientEncounter(doc, doctype, method), method, None)
 	
 	# Every controller should have one of following function
 	# 1. Validate, 2. Submit, 3. On Cancel
@@ -25,6 +50,9 @@ def handle_doc_event(doc, method):
 		func()
 
 
+'''
+	Base Controller for all the controller
+'''
 class BaseController(object):
 
 	def __init__(self, doc, doctype, method):
@@ -49,6 +77,4 @@ class BaseController(object):
 	def on_cancel(self):
 		# on_cancel function to validate the form
 		# cancellation of form
-		print("Base Controller Triggered: On Cancel")
-
-	
+		print("Base Controller Triggered: On Cancel")	

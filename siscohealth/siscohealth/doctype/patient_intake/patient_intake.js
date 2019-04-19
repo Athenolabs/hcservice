@@ -7,6 +7,7 @@ hcservice.patient_intake.PatientIntake  = Class.extend({
 		$.extend(this, args)
 	},
 	refresh: function(doc){
+		var me = this;
 		this.make_patient_encounter();
 	},
 	check_medicare_id: function(doc){
@@ -22,7 +23,7 @@ hcservice.patient_intake.PatientIntake  = Class.extend({
 	
 		}, __("Make")).addClass("btn-secondary");
 	
-	}
+	},
 });
 
 $.extend(cur_frm.cscript, new hcservice.patient_intake.PatientIntake({frm: cur_frm}));

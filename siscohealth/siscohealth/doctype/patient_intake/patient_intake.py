@@ -6,6 +6,8 @@ from __future__ import unicode_literals
 import frappe
 from frappe.model.document import Document
 from frappe.model.mapper import get_mapped_doc
+from siscohealth.utils import get_age
+from frappe.utils import cint, cstr, nowdate, nowtime
 
 class PatientIntake(Document):
 	
@@ -16,6 +18,8 @@ class PatientIntake(Document):
 		self.validate_comments()
 		self.validate_exam_declined()
 		self.make_or_update_patient()
+		self.make_or_update_vital_signs()
+		self.make_or_update_patient_encounter()
 		self.make_or_update_insurances()
 
 	def validate_scheduling(self):
@@ -34,7 +38,10 @@ class PatientIntake(Document):
 		pass
 
 
-
+	'''
+		Create Patient as standard workflow in ERP
+		and link with patient intake form
+	'''
 	def make_or_update_patient(self):
 		patient = None
 		if(self.patient and frappe.db.exists("Patient", self.patient)):
@@ -142,17 +149,78 @@ class PatientIntake(Document):
 		return insurance_doc
 
 
+	'''
+		Make Vital Signs for Patient as a separate link
+		Apply standard conversion factor
+	'''
+	def make_or_update_vital_signs(self):
+		uom = 39.3700787
+		vital_signs = None
+		if(self.vital_signs and frappe.db.exists("Vital Signs", self.vital_signs)):
+			vital_signs = frappe.get_doc("Vital Signs", self.vital_signs)
+		else:
+			vital_signs = frappe.new_doc("Vital Signs")	
+			vital_signs.signs_date = nowdate()
+			vital_signs.signs_time = nowtime()
+		vital_signs.update({
+			"patient": self.patient,
+			"height": self.height/uom if self.height else 0.0,
+			"weight": self.weight/2.205 if self.weight else 0.0
+		})
+		vital_signs.save(ignore_permissions=True)
+		self.vital_signs = vital_signs.name
+
+	'''
+		Make Patient Encounter to automize the process
+	'''
+	def make_or_update_patient_encounter(self):
+		patient_encounter = None
+		if(self.patient_encounter and( 
+			frappe.db.get_value("Patient Encounter", {
+					"name": self.patient_encounter,
+					"docstatus": 0}))):
+			patient_encounter = frappe.get_doc("Patient Encounter", self.patient_encounter)
+		else:
+			patient_encounter = frappe.new_doc("Patient Encounter")	
+			patient_encounter.encounter_date = nowdate()
+			patient_encounter.encounter_time = nowtime()
+			patient_encounter.practitioner = ""
+			patient_encounter.update({
+				"patient": self.patient,
+				"patient_sex": self.gender,
+				"patient_intake": self.name,
+				"patient_age": get_age(self.date_of_birth),
+			})
+			patient_encounter.insert(ignore_permissions=True, ignore_mandatory=True)
+			
+		patient_encounter.update({
+			"patient": self.patient,
+			"patient_sex": self.gender,
+			"patient_intake": self.name,
+			"patient_age": get_age(self.date_of_birth),
+		})
+		patient_encounter.flags.ingore_mandatory = True
+		patient_encounter.save(ignore_permissions=True)
+		self.patient_encounter = patient_encounter.name
+
+
 @frappe.whitelist()
 def make_patient_encounter(source_name, target_doc=None):
 	
 	def post_update(source_doc, target_doc):
+		diagnosis = []
 		target_doc.patient_sex = source_doc.gender
+		target_doc.patient_age = get_age(source_doc.date_of_birth)
 
 	doc = get_mapped_doc("Patient Intake", source_name, {
 			"Patient Intake": {
 				"doctype": "Patient Encounter",
 				"gender": "patient_sex",
+				"field_map":{
+					"name": "patient_intake"
+				}
 			},
 		},
 		target_doc, post_update)
 	return doc
+
